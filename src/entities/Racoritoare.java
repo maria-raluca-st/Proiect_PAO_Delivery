@@ -12,4 +12,9 @@ public class Racoritoare extends Produs{
         super.print();
         System.out.print(cantitate + "ml\n");
     }
+
+    @Override
+    public String toString(){
+        return super.toString()+","+String.format("%s", cantitate);
+    }
 }

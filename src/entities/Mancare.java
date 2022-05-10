@@ -23,4 +23,16 @@ public class Mancare extends Produs{
             System.out.print(ing + " ");
         System.out.print("\n");
     }
+
+    @Override
+    public String toString(){
+        String ingr = "";
+        for(String i : ingrediente)
+        {
+            ingr += i;
+            ingr += ';';
+        }
+        ingr.substring(0 , ingr.length()-1);
+        return super.toString()+","+String.format("%s", greutate) + "," + ingr;
+    }
 }

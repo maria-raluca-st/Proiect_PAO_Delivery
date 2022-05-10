@@ -74,4 +74,9 @@ public class Restaurant {
     public void printRating(){
         System.out.println("Restaurantul " + numeRestaurant + " are ratingul " + rating);
     }
+
+    @Override
+    public String toString(){
+        return numeRestaurant + ',' + adresaRestaurant + ',' + Double.toString(rating);
+    }
 }

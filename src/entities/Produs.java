@@ -24,4 +24,9 @@ public class Produs {
     public void print() {
         System.out.print(numeProdus + " " + descriereProdus + " " + pret + " lei ");
     }
+
+    @Override
+    public String toString(){
+        return numeProdus +","+ "," + descriereProdus + "," + Integer.toString(pret);
+    }
 }

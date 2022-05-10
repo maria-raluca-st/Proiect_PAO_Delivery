@@ -1,7 +1,11 @@
 package services;
 
+import entities.Restaurant;
 import entities.Utilizator;
+import services.csv.RestaurantCSV;
+import services.csv.UtilizatorCSV;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,15 +13,19 @@ import java.util.List;
 public class UtilizatorService {
     private static HashMap<String, Utilizator> utilizatori;
 
-    public UtilizatorService()
-    {
+    public UtilizatorService() throws FileNotFoundException {
         utilizatori = new HashMap<>();
+        for(Utilizator u : UtilizatorCSV.getInstance().load("./csv/utilizatori.csv"))
+        {
+            utilizatori.put(u.getEmail() ,u);
+        }
     }
 
 
     public void adaugareUtilizator(String nume, String email, String parola, String telefon, String adresa){
         Utilizator u = new Utilizator(nume, email, parola, telefon, adresa);
         utilizatori.put(email, u);
+        UtilizatorCSV.getInstance().add("./csv/utilizatori.csv", u);
     }
 
     public void adaugareUtilizatori(List<List<String>> useriNoi)

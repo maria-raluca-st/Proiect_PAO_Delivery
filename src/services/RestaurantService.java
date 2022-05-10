@@ -1,20 +1,37 @@
 package services;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import entities.Mancare;
+import entities.Racoritoare;
 import entities.Restaurant;
+import services.csv.MancareCSV;
+import services.csv.RacoritoareCSV;
+import services.csv.RestaurantCSV;
 
 public class RestaurantService {
 
-    private static HashMap<String, Restaurant> restaurante;
+    private HashMap<String, Restaurant> restaurante;
+    private ArrayList<Mancare> mancare = new ArrayList<>();
+    private ArrayList<Racoritoare> racoritoare = new ArrayList<>();
+    private final MancareCSV mancareCSV = MancareCSV.getInstance();
 
-    public RestaurantService() {
+    public RestaurantService() throws FileNotFoundException {
         restaurante = new HashMap<>();
+        mancare.addAll(MancareCSV.getInstance().load("./csv/mancare.csv"));
+        racoritoare.addAll(RacoritoareCSV.getInstance().load("./csv/racoritoare.csv"));
+        for(Restaurant r : RestaurantCSV.getInstance().load("./csv/restaurante.csv"))
+        {
+                restaurante.put(r.getNume() ,r);
+        }
+
     }
 
-    public static int GetIDRestaurant(String nume) {
+    public int GetIDRestaurant(String nume) {
         int id = 0;
         if (restaurante.containsKey(nume))
             id = restaurante.get(nume).getId();
@@ -25,6 +42,7 @@ public class RestaurantService {
     public void adaugareRestaurant(String nume, String adresa) {
         Restaurant r = new Restaurant(nume, adresa);
         restaurante.put(nume, r);
+        RestaurantCSV.getInstance().add("./csv/restaurante.csv", r);
     }
 
     public void adaugareRestaurante(ArrayList<ArrayList<String>> rest)
@@ -36,6 +54,7 @@ public class RestaurantService {
             String adresa = line.get(1);
             Restaurant r = new Restaurant(nume, adresa);
             restaurante.put(nume, r);
+            RestaurantCSV.getInstance().add("./csv/restaurante.csv", r);
         }
     }
 
@@ -51,6 +70,8 @@ public class RestaurantService {
             return;
         }
         r.AddMancare(nume, desc, pr, cantitate, ingrediente);
+        Mancare m = new Mancare(nume, desc,r, pr,cantitate, ingrediente);
+        mancareCSV.add("./csv/mancare.csv",m);
     }
 
     public void adaugareMancaruri(ArrayList<ArrayList <String>> foods){
@@ -64,6 +85,7 @@ public class RestaurantService {
             int cantitate = Integer.parseInt(line.get(4));
             List <String> ingrediente = Arrays.asList(line.get(5).split(","));
             adaugareMancare(numeRest, numeProdus, desc, pret, cantitate, ingrediente);
+
         }
     }
 
@@ -77,6 +99,8 @@ public class RestaurantService {
             return;
         }
         r.AddRacoritoare(nume, desc, pr, cantitate);
+        Racoritoare ra = new Racoritoare(nume, desc, r, pr,cantitate);
+        RacoritoareCSV.getInstance().add("./csv/racoritoare.csv",ra);
     }
 
     public void adaugareMRacoritoare(ArrayList<ArrayList <String>> r){
@@ -118,7 +142,7 @@ public class RestaurantService {
         r.printProduse();
     }
 
-    public static HashMap<String, Restaurant> getRestaurante()
+    public HashMap<String, Restaurant> getRestaurante()
     {
         return restaurante;
     }

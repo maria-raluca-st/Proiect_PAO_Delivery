@@ -3,6 +3,7 @@ package menu;
 import entities.*;
 import services.*;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +14,11 @@ public class menuapp {
     private Scanner s = new Scanner(System.in);
     private RestaurantService restaurantServices = new RestaurantService();
     private UtilizatorService utilizatorServices = new UtilizatorService();
-    
-    public static void main(String args[])
-    {
+
+    public menuapp() throws FileNotFoundException {
+    }
+
+    public static void main(String args[]) throws FileNotFoundException {
         menuapp meniuaplicatie = new menuapp();
         System.out.println("Meniu aplicatie livrare mancare");
         while (true)

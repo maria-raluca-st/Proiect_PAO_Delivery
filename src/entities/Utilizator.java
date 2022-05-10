@@ -49,4 +49,16 @@ public class Utilizator {
     {
         System.out.println("Nume " + nume + " are mailul " + email + "\n");
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString(){
+        return nume+ "," + email + ',' + parola + ',' + numarTelefon + ',' + adresaUtilizator;
+    }
+
+
 }
+
