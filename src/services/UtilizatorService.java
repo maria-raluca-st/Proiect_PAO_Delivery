@@ -45,10 +45,16 @@ public class UtilizatorService {
     {
         boolean f = false; // f = false daca userul nu e inregistrat
         for(String e : utilizatori.keySet())
+        {
             if(e == email)
-                f = true;
+                {
+                    f = true;
+                }
+        }
         if(f == false)
+        {
             email = null;
+        }
 
         return email;
     }

@@ -26,7 +26,7 @@ public class Restaurant {
     public int getId(){
         return idRestaurant;
     }
-    public void PrintInfo() {
+    public void printInfo() {
         System.out.println(idRestaurant);
         System.out.println(numeRestaurant);
         System.out.println(adresaRestaurant);
@@ -46,13 +46,13 @@ public class Restaurant {
         rating = sum/nr;
     }
 
-    public void AddMancare(String nume, String desc, int pr, int cantitate, List <String> ingrediente){
+    public void addMancare(String nume, String desc, int pr, int cantitate, List <String> ingrediente){
         Produs p;
         p = new Mancare(nume, desc, this, pr, cantitate, ingrediente);
         produse.add(p);
     }
 
-    public void AddRacoritoare(String nume, String desc, int pr, int cantitate){
+    public void addRacoritoare(String nume, String desc, int pr, int cantitate){
         Produs p;
         p = new Racoritoare(nume, desc, this, pr, cantitate);
         produse.add(p);
@@ -60,15 +60,20 @@ public class Restaurant {
 
     public Produs takeProdus(String nume){
         for(Produs p:produse)
-            if(p.getNume().equals(nume))
-                return p;
+        {     if(p.getNume().equals(nume))
+                {
+                   return p;
+                }
+        }
         return null;
     }
 
     public void printProduse()
     {
         for (Produs p:produse)
+        {
             p.print();
+        }
     }
 
     public void printRating(){

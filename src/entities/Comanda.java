@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,9 @@ public class Comanda implements Comparable<Comanda>{
     private int calculCost(){
         int costTotal = 0;
         for(Produs p: produse)
+        {
             costTotal += p.getPret();
+        }
         return costTotal;
     }
 
@@ -41,7 +44,7 @@ public class Comanda implements Comparable<Comanda>{
         sofer = s;
     }
 
-    public void PrintOrder(){
+    public void printOrder(){
         System.out.println(new StringBuilder().append("ID Comanda: ").append(idComanda).toString());
         System.out.println(new StringBuilder().append("ID: Restaurant ").append(idRestaurant).toString());
         System.out.println(emailUtilizator);

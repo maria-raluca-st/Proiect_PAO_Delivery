@@ -1,10 +1,7 @@
 package services;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import entities.Mancare;
 import entities.Racoritoare;
@@ -16,7 +13,8 @@ import services.csv.RestaurantCSV;
 public class RestaurantService {
 
     private HashMap<String, Restaurant> restaurante;
-    private ArrayList<Mancare> mancare = new ArrayList<>();
+
+    private NavigableSet<Mancare> mancare = new TreeSet<>();
     private ArrayList<Racoritoare> racoritoare = new ArrayList<>();
     private final MancareCSV mancareCSV = MancareCSV.getInstance();
 
@@ -31,10 +29,12 @@ public class RestaurantService {
 
     }
 
-    public int GetIDRestaurant(String nume) {
+    public int getIDRestaurant(String nume) {
         int id = 0;
         if (restaurante.containsKey(nume))
+        {
             id = restaurante.get(nume).getId();
+        }
         return id;
     }
 
@@ -63,13 +63,15 @@ public class RestaurantService {
 
         Restaurant r;
         if (restaurante.containsKey(restaurant))
+        {
             r = restaurante.get(restaurant);
+        }
         else
         {
             System.out.println("Restaurantul " + restaurant + " nu este disponibil in aplicatie.");
             return;
         }
-        r.AddMancare(nume, desc, pr, cantitate, ingrediente);
+        r.addMancare(nume, desc, pr, cantitate, ingrediente);
         Mancare m = new Mancare(nume, desc,r, pr,cantitate, ingrediente);
         mancareCSV.add("./csv/mancare.csv",m);
     }
@@ -92,13 +94,15 @@ public class RestaurantService {
     public void adaugareRacoritoare(String numeRest, String nume, String desc, int pr, int cantitate){
         Restaurant r;
         if(restaurante.containsKey(numeRest))
+        {
             r = restaurante.get(numeRest);
+        }
         else
         {
             System.out.println("Restaurantul " + numeRest + "nu este disponibil in aplicatie.");
             return;
         }
-        r.AddRacoritoare(nume, desc, pr, cantitate);
+        r.addRacoritoare(nume, desc, pr, cantitate);
         Racoritoare ra = new Racoritoare(nume, desc, r, pr,cantitate);
         RacoritoareCSV.getInstance().add("./csv/racoritoare.csv",ra);
     }
@@ -118,7 +122,7 @@ public class RestaurantService {
     }
 
 
-    public void Produse()
+    public void produse()
     {
         for (Restaurant r: restaurante.values())
         {
@@ -129,11 +133,13 @@ public class RestaurantService {
     }
 
 
-    public void ProduseRest(String restName)
+    public void produseRest(String restName)
     {
         Restaurant r;
         if(restaurante.containsKey(restName))
+        {
             r = restaurante.get(restName);
+        }
         else
         {
             System.out.println("Restaurantul " + restName + " nu este disponibil in aplicatie.");

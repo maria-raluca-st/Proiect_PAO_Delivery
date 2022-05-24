@@ -227,13 +227,13 @@ public class menuapp {
         }
         else if(optiune == 10)
         {
-             restaurantServices.Produse();
+             restaurantServices.produse();
         }
         else if(optiune == 11)
         {
             System.out.println("Nume restaurant:");
             String nume = s.nextLine();
-            restaurantServices.ProduseRest(nume);
+            restaurantServices.produseRest(nume);
         }
         else if(optiune == 0)
         {
